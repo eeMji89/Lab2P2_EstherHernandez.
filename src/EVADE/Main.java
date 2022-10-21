@@ -1,6 +1,7 @@
 package EVADE;
 
 import java.util.ArrayList;
+import java.util.Collections;
  import java.util.Scanner;
  import java.util.Random;
 /**
@@ -55,8 +56,15 @@ public class Main {
                     System.out.println("Agregar Bots");
                    
                         int v = 70;
-                        System.out.println("Ingrese el cacrater del bot: ");
-                        char nb= lea.next().charAt(0);
+                        System.out.println("Ingrese el caracter del bot: ");
+                        String nb= lea.next();
+                        for (int i = 0; i < bots.size(); i++) {
+                        if(nb.equals(((Bots)bots.get(i)).getNombre())){
+                        System.out.println("Este caracter no es posible poner");
+                        System.out.println("Ingrese un nuevo el Caracter(minusculas) que represente al Jugador:");
+                        nb = lea.next();
+                    }  
+                    }
                         System.out.println("Ingrese aspecto del bot: ");
                         String aspecto = lea.nextLine();
                         aspecto = lea.next();
@@ -72,9 +80,12 @@ public class Main {
                          Agregaritem(jugadores);                    
                     break;
                 case 4:
-                    System.out.println(jugadores.toString());
+                    System.out.println();
                     tablero= GenerarM();
                     imprimirM(tablero);
+                    System.out.println("Inicio");
+                   
+                    imprimirM( Jugar(jugadores,bots,tablero));
                     break;
                 default:
                     System.out.println("Opcion no valida. Intente de nuevo");
@@ -154,10 +165,10 @@ public class Main {
     public static ArrayList Defaultjugadores( ){
          ArrayList j = new ArrayList();
         
-       j.add(new Jugador("jugador1", 'a', 0, 50));
-       j.add(new Jugador("jugador2", 'b', 0, 50));
-       j.add(new Jugador("jugador3", 'c', 0, 50));
-       j.add(new Jugador("jugador4", 'd', 0, 50));
+       j.add(new Jugador("Italy65", 'a', 0, 50));
+       j.add(new Jugador("Elraptukas3000", 'b', 0, 50));
+       j.add(new Jugador("estuardo124", 'c', 0, 50));
+       j.add(new Jugador("King_calebU", 'd', 0, 50));
        return j;
     }
     public static ArrayList Defaultbots(){
@@ -204,13 +215,63 @@ public class Main {
         return tablero;
         }
     public static Object[][]Jugar(ArrayList j,ArrayList b, Object[][]t){
-        int nj = 12;
+        int r,cont = 0,cont2=0;
+        ArrayList nj = new ArrayList();
+        ArrayList nb1 = new ArrayList();
+        Collections.shuffle(j);
+        Collections.shuffle(b);
+       if (j.size()>12) {
+            for (int i = 0; i < 12; i++) {
+                nj.add(j.get(i));
+            }
+        }
+        else{
+            nj= j;
+        }
+
+        int nb = (nj.size()/4)+1;
+        if (b.size()>nb) {
+            for (int p = 0; p < nb; p++) {
+                nb1.add(b.get(p));
+            }
+        }
+        else{
+            nb1=b;
+        }
         
+        ArrayList njj = new ArrayList();
         for (int i = 0; i < t.length; i++) {
+           
             for (int k = 0; k < t[i].length; k++) {
+                r = 1+ rd.nextInt(29); int r2= 1+rd.nextInt(29);
+                int r3=  1+ rd.nextInt(29);int r4=  1+ rd.nextInt(29);
+                if (cont< nj.size()) {
+                     t[r2][r]= ((Jugador)nj.get(cont)).getCj();
+                cont = cont +1;
+                }
+                
+                if (cont2<nb1.size()) {
+                    t[r3][r4]=((Bots)nb1.get(cont2)).getNombre();
+                    cont2 = cont2+1;
+                    
+                    if (r2==r3&&r==r4) {
+                        System.out.println("EL bot"+((Bots)nb1.get(cont2)).getNombre()+
+                                "derribo a"+ ((Jugador)nj.get(cont)).getCj());
+                    }
+                }
+               
+            }
+        }
+        System.out.println("Avanzar al siguiente estado?[s/n]");
+        char resp = lea.next().charAt(0);
+        if (resp=='s'||resp== 'S') {
+             for (int m = 0; m < 10; m++) {
+            for (int n = 0; n < 10; n++) {
                 
             }
         }
+        }
+       
         return t;
     }
 }
