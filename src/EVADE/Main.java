@@ -57,14 +57,15 @@ public class Main {
                    
                         int v = 70;
                         System.out.println("Ingrese el caracter del bot: ");
-                        String nb= lea.next();
+                        char nb= lea.next().charAt(0);
                         for (int i = 0; i < bots.size(); i++) {
-                        if(nb.equals(((Bots)bots.get(i)).getNombre())){
+                        if(nb==(((Bots)bots.get(i)).getNombre())){
                         System.out.println("Este caracter no es posible poner");
                         System.out.println("Ingrese un nuevo el Caracter(minusculas) que represente al Jugador:");
-                        nb = lea.next();
+                        nb = lea.next().charAt(0);
                     }  
                     }
+                        
                         System.out.println("Ingrese aspecto del bot: ");
                         String aspecto = lea.nextLine();
                         aspecto = lea.next();
@@ -245,6 +246,7 @@ public class Main {
             for (int k = 0; k < t[i].length; k++) {
                 r = 1+ rd.nextInt(29); int r2= 1+rd.nextInt(29);
                 int r3=  1+ rd.nextInt(29);int r4=  1+ rd.nextInt(29);
+                
                 if (cont< nj.size()) {
                      t[r2][r]= ((Jugador)nj.get(cont)).getCj();
                 cont = cont +1;
@@ -265,9 +267,18 @@ public class Main {
         System.out.println("Avanzar al siguiente estado?[s/n]");
         char resp = lea.next().charAt(0);
         if (resp=='s'||resp== 'S') {
-             for (int m = 0; m < 10; m++) {
-            for (int n = 0; n < 10; n++) {
-                
+             for (int m = 0; m < t.length; m++) {
+                for (int n = 0; n < t[m].length; n++) {
+                    for (int l = 0; l < nj.size(); l++) {
+                        if (t[m][n].equals(((Jugador)nj.get(l)).getCj())) {
+                            if (t[m][n+1].equals('X')||t[m][n-1].equals('X')||
+                                    t[m+1][n].equals('X')||t[m-1][n].equals('X')) {
+                                t[m][n]=((Jugador)nj.get(l)).getCj();
+                            
+                    }
+                            else{
+                                
+                            }
             }
         }
         }
